@@ -1,1 +1,4 @@
-/ecardsystem.zip
+#.gitignore
+
+# Environents
+venv/
