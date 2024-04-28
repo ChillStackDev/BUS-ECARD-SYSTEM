@@ -1,0 +1,160 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus-Student</title>
+    <link rel="stylesheet" href= {% static "./css/style.css" %}>
+</head>
+<body>
+
+    <section class="student-form">
+        <div class="std-app">
+            <img class="bus-loog-icon" src={% static  "./Bus-UI/Home_page_icon.png"  %} alt="">
+            <div class="profile-home">
+                {% if request.user.is_authenticated and not request.user.is_superuser %}
+                <a onclick="window.location.href='./plan/'">
+                    <img class="profile-icon" src={% static  "./Bus-UI/profile icon.png"  %} alt="">
+                </a>
+                {% else %}
+                <a onclick="window.location.href='./home'">
+                    <img class="profile-icon" src={% static  "./Bus-UI/profile icon.png"  %} alt="">
+                </a>
+                {% endif %}
+                <a onclick="window.location.href='./home'">
+                    <img class="profile-icon" src={% static "./Bus-UI/home-fill.png" %} alt="">
+                </a>
+            </div>
+        </div>
+
+        <form method="post"  enctype="multipart/form-data">
+            {% csrf_token %}
+          
+            <div class="form">
+                <h4 class="form-title">
+                    Application for student card
+                </h4>
+                <div class="details">
+                    <h6 class="details_title">10th Details</h6>
+                    <div class="details-inputs">
+                        <label for="">SSC board type</label>
+                        <input type="text" class="board" name="sscBoard" required>
+                        <label for="">SSC Year of pass</label>
+                        <input type="text" class="pass-year" name="sscPass" required>
+                        <label for="">SCC hall ticket no.</label>
+                        <input type="text" class="ticket" name="sscHNO" required>
+                    </div>
+                </div>
+                
+                <div class="details">
+                    <h6 class="details_title">Details</h6>
+                    <div class="details-inputs">
+                        <label for="">Full Name (as per Aadhar)</label>
+                        <input type="text" class="name" name="name" required>
+                        <label for="">Father/Guardian</label>
+                        <input type="text" class="father" id="father_name" name="father_name" required>
+                        <label for="gender">Gender</label>
+                        <select class="gender" id="gender" name="gender" required>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <br>
+                        <label for="dob">Date of Birth:</label>
+                        <input type="date" class="dob" id="dob" name="dob" required>
+                        <label for="">Mobile Number</label>
+                        <input type="text" class="mobile" id="mobile_number" name="mobile_number" required>
+                        <label for="">Email</label>
+                        <input type="email" class="email" name="email" id="email" required>
+                        <label for="">Aadhar No.</label>
+                        <input type="text" class="aadhar" id="aadhar_number" name="aadhar_number" required>
+                    </div>
+                </div>
+                
+                <div class="details">
+                    <h6 class="details_title">Residential Address Details</h6>
+                    <div class="details-inputs">
+                        <label for="">District</label>
+                        <input type="text" class="district" id="district" name="district" required>
+                        <label for="">Mandal</label>
+                        <input type="text" class="mandal"   id="mandal" name="mandal" required>
+                        <label for="">Village/Street</label>
+                        <input type="text" class="village" id="street" name="street" required>
+                        <label for="">House-No</label>
+                        <input type="text" class="address" id="building_number" name="building_number" required>
+                    </div>
+                </div>
+    
+                <div class="details">
+                    <h6 class="details_title">Institution Details</h6>
+                    <div class="details-inputs">
+    
+                        <label for="">Institute Name</label>
+                        <input type="text" class="institute" id="college_name" name="college_name" required>
+                        <label for="">Course Name</label>
+                        <input type="text" class="course" name="coursename" required>
+                        <label for="">Admission No.</label>
+                        <input type="text" class="admission" id="college_id" name="college_id" required>
+                    </div>
+                </div>
+                
+                <div class="details">
+                    <h6 class="details_title">Route Details</h6>
+                    <div class="details-inputs">
+                        <label for="">Center/Bus Complex</label>
+                        <select class="complex" id="route_details" name="route_details" required>
+                            <option value="visakhapatnam">VISAKHAPATNAM</option>
+                            <option value="vizayanagaram">VIZAYANAGARAM</option>
+                            <option value="anakapalli">ANAKAPALLI</option>
+                            <option value="vijayawada">SRIKAKULAM</option>
+                          </select>
+                      
+                    </div>
+                </div>
+                 
+                <br>
+
+                <div class="captcha">
+                    {% comment %} <img src="./Bus-UI/captcha.png" alt="" class="captcha-img">
+                    <input type="text" placeholder="captcha here"> {% endcomment %}
+                    <button class="submit" type="submit" >Submit</button>
+                    <p class="instruction">DO Not share Information in the mail we have sent</p>
+                </div> 
+            </div>
+        </form>
+
+        <div class="notification" id="notificationpopup" style="display: none;">
+            <div class="notice">
+                <button class="close" onclick="closepopup()">x</button>
+                <h5 class="title-notice">Notice</h5>
+                <h6 class="sub-notice-title" id="notificationMessage"></h6>
+                <button class="notify-btn" type="button" onclick="window.location.href='/home'">Continue</button>
+            </div>
+        </div>
+        <div class="overlay" id="overlay"></div>
+
+    </section>
+
+    <!-- JavaScript code -->
+    <script>
+        function openpopup(message) {
+            var popup = document.getElementById("notificationpopup");
+            var notificationMessage = document.getElementById("notificationMessage");
+            notificationMessage.innerHTML = message; // Set the message in the popup
+            popup.style.display = "block"; // Display the popup
+        }
+
+        // Function to close the notification popup
+        function closepopup() {
+            var popup = document.getElementById("notificationpopup");
+            popup.style.display = "none"; // Hide the popup
+        }
+
+        // Check if there is a message, if yes, then display the popup
+        {% if message %}
+          openpopup("{{ message }}");
+        {% endif %}
+    </script>
+</body>
+</html>

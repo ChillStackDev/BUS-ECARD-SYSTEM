@@ -1,0 +1,157 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus-Home</title>
+    <link rel="stylesheet" href={% static "css/style.css" %} >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <style>
+            .profile-icon {
+                animation: flip 2s infinite;
+            }
+    
+            @keyframes flip {
+                0% {
+                    transform: rotateY(0deg);
+                }
+    
+                50% {
+                    transform: rotateY(180deg);
+                }
+    
+                100% {
+                    transform: rotateY(360deg);
+                }
+            }
+        </style>
+</head>
+
+<body>
+
+    <section class="bus-home" id="bus-home">
+        <div class="head">
+            <img class="icon" src= {% static  "Bus-UI/Home_page_icon.png" %} alt="">
+            {% if request.user.is_authenticated and not request.user.is_superuser %}
+            <span class="coins-total">{{ user.student.usersubscription.coins }}<img class="bus-icon" src={% static "./Bus-UI/bus-coin.png" %} alt=""
+                style="width: 3rem;animation: flip 2s infinite;"></span>
+            <div class="profile-div">
+                <a href="/plan/">
+                    <img class="card-profile-img" src={{ request.user.student.image.url }} alt="" >
+                </a>
+           </div>
+            {% else %}
+            <span>No coins<img src= {% static  "Bus-UI/coins.png" %} alt=""></span>
+            <a href="login">
+                <img class="profile-icon" src={% static "Bus-UI/profile icon.png" %} alt="">
+            </a>
+            {% endif %}
+
+        </div>
+        <div class="container">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <!-- <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol> -->
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+
+                    <div class="carousel-item active">
+                        <img src={% static  "Bus-UI/bus2.jpg" %} alt="Chicago" style="width:100vw; height:24vh;">
+                        <p class="bus-para2">In some regions, RTC buses have implemented initiatives like the Shakti
+                            Scheme in Karnataka, which allows women and transgenders to travel for free in non-premium
+                            services, thereby promoting women’s participation in the workforce.</p>
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src= {% static "Bus-UI/bus1.jpg" %} alt="Los Angeles" style="width:100vw; height:24vh;">
+                        <p class="bus-para1">RTC buses provide an affordable and efficient means of transportation for
+                            the general public, making commuting easier and more accessible.</p>
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src={% static  "Bus-UI/bus3.jpg" %} alt="Los Angeles" style="width:100vw; height:24vh;">
+                        <p class="bus-para3">The use of RTC buses promotes public transportation, which can help reduce
+                            traffic congestion, lower carbon emissions, and contribute to a more sustainable
+                            environment2.</p>
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src={% static "Bus-UI/bus4.jpg" %} alt="Chicago" style="width:100vw; height:24vh;">
+                        <p class="bus-para4">Special programs like the Shakti Scheme have shown significant benefits,
+                            with over 3.12 crore women availing public transportation facilities within a week of the
+                            scheme’s launch.</p>
+                    </div>
+                </div>
+
+                <!-- Left and right controls -->
+                <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+        <div class="about">
+            <h5 class="about-title">About Us</h5>
+            <h6 class="about-sub-title">Smart card system</h6>
+            <p class="about-para">A smart card system in RTC Buses allows passengers to pay fares by tapping a
+                pre-loaded card on a reader, automatically deducting the trip cost.</p>
+        </div>
+        <div class="route-map">
+            <h5 class="route-map-title">Route Map</h5>
+            <h6 class="route-map-sub-title">Short User Manual</h6>
+            <div class="route-container">
+                <div class="route-card card1">
+                    <p class="route-content">Login or Fill Application</p>
+                </div>
+                <div class="route-card card2">
+                    <p class="route-content">Create profile or Register</p>
+                </div>
+                <div class="route-card card3">
+                    <p class="route-content">Add amount or Recharge</p>
+                </div>
+                <div class="route-card card4">
+                    <p class="route-content">Scan and travell</p>
+                </div>
+            </div>
+        </div>
+        <div class="features">
+            <h5 class="features-title">Features</h5>
+            <p class="features-para">Our system offers impeccable security, eliminates the need for third-party payments and paper bills, requires no cash, enables quick payments, supports QR code transactions, and provides tap to pay validation.</p>
+        </div>
+        <div class="icons">
+            <img src= {% static "Bus-UI/no-money.png" %} alt="">
+            <img src={% static  "Bus-UI/Rfid.png" %} alt="">
+            <img src={% static  "Bus-UI/verify.png" %} alt="">
+        </div>
+        <footer class="bus-footer">
+            <p class="email">helpecard.bus@gmail.com</p>
+            <p class="phone">toll free:+ 018 633 633</p>
+        </footer>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

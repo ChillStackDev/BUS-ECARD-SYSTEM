@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus-Student</title>
+    <link rel="stylesheet" href= {% static "./css/style.css" %}>
+</head>
+<body>
+
+    <section class="student-form">
+        <div class="std-app">
+            <img class="bus-loog-icon" src={% static  "./Bus-UI/Home_page_icon.png"  %} alt="">
+            <div class="profile-home">
+                {% if request.user.is_authenticated and not request.user.is_superuser %}
+                <a onclick="window.location.href='./plan/'">
+                    <img class="profile-icon" src={% static  "./Bus-UI/profile icon.png"  %} alt="">
+                </a>
+                {% else %}
+                <a onclick="window.location.href='./home'">
+                    <img class="profile-icon" src={% static  "./Bus-UI/profile icon.png"  %} alt="">
+                </a>
+                {% endif %}
+                <a onclick="window.location.href='./home'">
+                    <img class="profile-icon" src={% static "./Bus-UI/home-fill.png" %} alt="">
+                </a>
+            </div>
+        </div>
+        
+        {% if error_message %}
+          <p style="color: red;">{{ error_message }}</p>
+       {% endif %}
+        <form method="post"  enctype="multipart/form-data">
+            {% csrf_token %}
+          
+            <div class="form">
+                <h4 class="form-title">
+                   OTP VERIFICATION
+                </h4>
+
+                <div class="details">
+                    
+                    <div class="details-inputs">
+                    
+                       
+                        <label for="">OTP</label>
+                        <input type="text"  name="otp" required>
+
+                    </div>
+                </div>
+            
+
+
+
+                 
+                <br>
+
+                <div class="captcha">
+                   
+                    <button class="submit" type="submit" >Submit</button>
+                    <p class="instruction">You may receive OTP through sms or via call.</p>
+                </div> 
+            </div>
+        </form>
+
+
+
+    </section>
+
+
+</body>
+</html>

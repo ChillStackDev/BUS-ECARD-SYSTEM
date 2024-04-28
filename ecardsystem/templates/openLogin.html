@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus-OpenLogin</title>
+    <link rel="stylesheet" href= {% static "css/style.css" %}>
+
+</head>
+<body>
+    <section class="pre-login" id="login">
+        <div class="pre-login-head">
+            <img class="bus-icon icon" src= {% static "./Bus-UI/Home_page_icon.png" %} alt="">
+            <span>No coins<img  src={% static  "./Bus-UI/coins.png" %} alt=""></span>
+            <a onclick="window.location.href='/home'">
+                <img class="profile-icon" src={% static "./Bus-UI/home-fill.png" %} alt="">
+            </a>
+        </div>
+        {% if message %}
+            <div class="alert alert-{{class}}">
+                {{message}}
+            </div>
+            {% endif %}
+        <div class="buttons-login">
+            <button class="login-btn" onclick="openLogin()">Login</button>
+            <p class="or">or</p>
+            <div class="reg-buttons">
+                <button class="reg student-reg" onclick="window.location.href='./application'">Student Register</button>
+                {% comment %} <button class="reg employee-reg" onclick="window.location.href='./employee.html'">Employee Register</button> {% endcomment %}
+            </div>
+        </div>
+        <div class="nothing">
+            <p class="text">No Updates</p>
+        </div>
+
+        <div class="overlay" id="overlay" style="display:none;"></div>
+
+        <div class="login-container" id="loginPopup" style="display:none;">
+
+
+                <div class="login">
+                    <button class="close" onclick="closeLogin()">x</button>
+                    <form method="post"  enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <h5 class="title-login">Login</h5>
+                        <h6 class="sub-login-title">Please enter Username,Id and Password.</h6>
+                        <input type="text" placeholder="username" name="username" required>
+                        <input type="text" placeholder="userID" name="uid" required>
+                        <input type="password" name="password" id="" placeholder="password">
+                        <button class="btn-login" type="submit" >Login</button>
+                    </form>
+                </div>
+           
+        </div>
+    </section>
+
+    <script>
+        function openLogin() {
+            document.getElementById("loginPopup").style.display = "flex";
+        }
+
+        function closeLogin() {
+            document.getElementById("loginPopup").style.display = "none";
+        }
+    </script>
+</body>
+</html>
